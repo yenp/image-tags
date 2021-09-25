@@ -9,6 +9,7 @@ $(document).ready(function () {
     var deleteBtn = $('#deleteBtn')
     var updateBtn = $('#updateBtn')
     var loginBtn = $('#loginBtn')
+    var logOutBtn = $('#logOutBtn')
     var loginBtnAction = $('#loginBtnAction')
     var imgEditPreview = $('#imgEditPreview')
     var dropZone = $('#dropzone')
@@ -148,6 +149,13 @@ $(document).ready(function () {
     loginBtn.click(e=>{
         LoginModal.modal('show');
     });
+
+    logOutBtn.click(e=>{
+        localStorage.removeItem('CognitoToken');
+        location.reload()
+    });
+
+    
     
     loginBtnAction.click(async e=>{
         var email = $('#email').val();
@@ -163,8 +171,8 @@ $(document).ready(function () {
                 alert(res.code);
             }else{
                 localStorage.setItem('CognitoToken',res.cognitoToken);
-                checkLogin();
                 closeModal();
+                checkLogin();
             }
             loading();
         }
@@ -294,6 +302,7 @@ $(document).ready(function () {
     var checkLogin = async()=>{
         var CognitoToken = localStorage.getItem('CognitoToken');
         document.getElementById('loginBtn').style.display = !CognitoToken?'block':'none';
+        document.getElementById('logOutBtn').style.display = CognitoToken?'block':'none';
     }
 
     /**
