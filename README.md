@@ -54,7 +54,8 @@ Test123!@#
 ## NOTE
 
 - The folder public / views that are for UI demo, its not include in project idea needed.
-- S3 setting ACL to public-read testing 
+- S3 setting ACL to public-read to test
+- .env is local variable to test
 
 
 ## Test
