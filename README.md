@@ -4,6 +4,7 @@
 - AWS stack using
   - Dynamodb
   - API Gateway
+  - Lambda function
   - S3
   - Cognito (be secure against anonymous access) - Don't work for localhost
 
