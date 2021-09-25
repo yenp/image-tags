@@ -1,0 +1,58 @@
+org: alexpham
+app: image-tags
+service: image-tags
+frameworkVersion: '2'
+useDotenv: true
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${env:AWS_REGION}
+  memorySize: 4048
+  lambdaHashingVersion: 20201221
+  
+
+plugins:
+ - serverless-plugin-typescript
+ - serverless-plugin-optimize
+ - serverless-offline
+ - serverless-dotenv-plugin
+
+package:
+  patterns:
+    - 'src/views/**'
+    - 'src/public/**'
+
+functions:
+  main: 
+    handler: src/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{any+}
+          cors:
+            origin: '*' 
+            headers:
+              - Content-Type
+              - Accept
+              - Token
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: CustomAuthorizer
+
+
+resources:
+  Resources:
+    CustomAuthorizer:
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        AuthorizerResultTtlInSeconds: 300
+        IdentitySource: method.request.header.Token
+        Name: Authorizer-Custom
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+        Type: COGNITO_USER_POOLS
+        ProviderARNs:
+          - ${env:COGNITO_ARN}

@@ -1,0 +1,172 @@
+
+<!-- UI FOR TEST API -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script src="/bootstrap-tagsinput.js"></script>
+    <script src="/main.js"></script>
+
+    <!-- custom CSS/JS -->
+    <link rel="stylesheet" href="/style.css">
+    
+  </head>
+  <body>
+     <div class="loading" id="loading" style="display: none;"></div>
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-6 mt-3">
+            <h4><b>{{ message }}</b></h4>
+          </div>
+          <div class="col-6 mt-3 text-end">
+            <a class="text-primary" id="loginBtn" style="display: none;">Login</a>
+          </div>
+
+          <div class="col-12">
+
+              <div class="mb-1">
+                <label for="tag" class="form-label">Tags</label>
+                <input type="text" data-role="tagsinput" class="form-control" id="tag">
+              </div>
+
+              <div class="w-100 mt-3 drop-upload" >
+                  <div id="dropzone" draggable='true' >
+                    <p class="flex-1">
+                      Drag and Drop to upload.
+                    </p>
+                  </div>
+                  <div id="preview">
+                    <p class="flex-1">Preview</p>
+                  </div>
+              </div>
+
+          </div>
+          <div class="col-12 mt-3">
+            <button class="btn btn-secondary" id="clearBtn">
+              Remove Image
+            </button>
+            <button class="btn btn-primary" id="saveBtn">
+              Save
+            </button>
+          </div>  
+
+
+
+          <div class="col-12 mt-3">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Tags</th>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Date Modified</th>
+                  <th scope="col">Trackings</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+      </div>
+
+
+      {{!-- Start Login Modal --}}
+      <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editModalCenterTitle">Edit Tag</h5>
+            </div>
+            <div class="modal-body">
+              <div class="mb-1">
+                <label for="tag" class="form-label">Tags</label>
+                <input type="text" data-role="tagsinput" class="form-control" id="tagEdit">
+              </div>
+
+              <div class="col text-center mt-3 border">
+                <img src="" id="imgEditPreview" width="auto" height="300px">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close">Close</button>
+              <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
+              <button type="button" class="btn btn-primary" id="updateBtn">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{!-- End Login Modal --}}
+
+      {{!-- Start Edit Tags Modal --}}
+      <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginModalTitle">Login</h5>
+            </div>
+            <div class="modal-body">
+              <div class="mb-1">
+                <label class="form-label">Email</label>
+                <input type="text" id="email" class="form-control">
+              </div>
+              <div class="mb-1">
+                <label class="form-label">Password</label>
+                <input id="password" type="password" class="form-control">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close">Close</button>
+              <button type="button" class="btn btn-primary" id="loginBtnAction">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{!-- End Edit Tags Modal --}}
+
+
+      {{!-- Start View Tracking Modal --}}
+      <div class="modal fade" id="trackingsModal" tabindex="-1" role="dialog" aria-labelledby="trackingsModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="trackingsModalTitle">Trackings</h5>
+            </div>
+            <div class="modal-body">
+              <table class="table trackings">
+                <thead>
+                  <tr>
+                    <th scope="col">Action</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Date Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{!-- End View Tracking Modal --}}
+
+
+  </body>
+</html>
