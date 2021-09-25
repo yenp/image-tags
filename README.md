@@ -8,6 +8,17 @@
   - Cognito (be secure against anonymous access) - Don't work for localhost
 
 
+## API URL
+
+#### Register / Login Cognito User
+- /users/register - POST
+- /users/login - POST
+#### Photos
+- /photos - GET, POST 
+- /photos/:id - GET, PATCH, DELETE
+#### Trackings
+- /photos/:photoId - GET
+
 ## Installation
 
 ```bash
