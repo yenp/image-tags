@@ -14,10 +14,11 @@
 - /users/register - POST
 - /users/login - POST
 #### Photos
+- /photos/sign - POST ( for s3 presigned url before upload )
 - /photos - GET, POST 
 - /photos/:id - GET, PATCH, DELETE
 #### Trackings
-- /photos/:photoId - GET
+- /trackings/:photoId - GET
 
 ## Installation
 
@@ -51,7 +52,8 @@ Test123!@#
 
 ## NOTE
 
-- The folder public / views that are for UI demo, its not include in project idea need.
+- The folder public / views that are for UI demo, its not include in project idea needed.
+- S3 setting ACL to public-read testing 
 
 
 ## Test
